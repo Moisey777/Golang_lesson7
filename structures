@@ -1,0 +1,69 @@
+/*
+Структуры представляют тип данных, определяемый разработчиком и служащий для представления каких-либо объектов. Структуры содержат набор полей, которые представляют различные атрибуты объекта. Для определения структуры применяются ключевые слова type и struct:
+*/
+
+type person struct{
+    name string
+    age int
+}
+
+/*
+С помощью инициализатора можно передать структуре начальные значения:
+*/
+var tom person = person{"Tom", 23}
+/*
+Также можно использовать сокращенные способы инициализации переменной структуры:
+*/
+var tom = person {name: "Tom", age: 24}
+bob := person {name: "Bob", age: 31}
+
+/*
+Для обращения к полям структуры после переменной ставится точка и указывается поле структуры:
+*/
+package main
+import "fmt"
+ 
+type person struct{
+    name string
+    age int
+}
+ 
+func main() {
+     
+    var tom = person {name: "Tom", age: 24}
+    fmt.Println(tom.name)       // Tom
+    fmt.Println(tom.age)        // 24
+     
+    tom.age = 38    // изменяем значение
+    fmt.Println(tom.name, tom.age)      // Tom 38
+}
+
+/*
+Указатели на структуры
+*/
+package main
+import "fmt"
+ 
+type person struct{
+    name string
+    age int
+}
+ 
+func main() {
+     
+    tom := person {name: "Tom", age: 22}
+    var tomPointer *person = &tom
+    tomPointer.age = 29
+    fmt.Println(tom.age)        // 29
+    (*tomPointer).age = 32
+    fmt.Println(tom.age)        // 32
+}
+
+//Можно присвоить адрес безымянного объекта следующим образом:
+var tom *person = &person{name:"Tom", age:23}
+var bob *person = new(person)
+//Также можно определять указатели на отдельные поля структуры:
+tom := person {name: "Tom", age: 22}
+var agePointer *int = &tom.age  // указатель на поле tom.age
+*agePointer = 35            // изменяем значение поля
+fmt.Println(tom.age)        //  35
